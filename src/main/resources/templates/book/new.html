@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout_main">
+<body>
+
+<div layout:fragment="content">
+    <div class="page-header">
+        <h1 th:text="#{book.new.header}">Books</h1>
+    </div>
+
+
+    <form role="form" th:action="@{/book}" method="post" th:object="${book}">
+        <div th:replace="book/fragments :: bookform">
+
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary" th:text="#{btn.save}">
+                Save
+            </button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

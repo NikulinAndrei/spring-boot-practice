@@ -15,13 +15,19 @@
         <!--Header-->
     <!--</div>-->
 
-    <div layout:fragment="content">
-        Content
+    <div class="container" role="main">
+
+        <div th:if="${SUCCESS_MSG}"
+             th:text="${SUCCESS_MSG}" style="color: green"></div>
+
+        <div layout:fragment="content">
+            Content
+        </div>
     </div>
+
 
     <!--<div th:replace="fragments/footer :: footer">-->
         <!--Footer-->
     <!--</div>-->
-footer
 </body>
 </html>

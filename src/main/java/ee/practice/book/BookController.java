@@ -1,5 +1,6 @@
 package ee.practice.book;
 
+import ee.practice.ex.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,22 +30,31 @@ public class BookController {
   @RequestMapping(value = "/book", method = RequestMethod.GET)
   public String newBook(Model model){
     model.addAttribute("book", new Book());
-    return "book/book";
+    return "book/new";
   }
 
   @RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
   public String newBook(@PathVariable int id,  Model model){
-    log.info("Showing info for {}" + id);
-    model.addAttribute("book", service.load(id));
-    return "book/book";
+    log.info("Showing info for {}", id);
+    Book book = service.load(id)
+        .orElseThrow( ()-> new NotFoundException("Cannot load book for Id " + id));
+    model.addAttribute("book", book);
+    return "book/edit";
   }
 
-  @RequestMapping(value = "/book", method = RequestMethod.POST)
-  public String save(Book book, RedirectAttributes flash) {
-    log.info("Saving {}", book );
-    int id = service.insert( book );
+  @RequestMapping(value = "/book/{id}", method = RequestMethod.POST)
+  public String update(@PathVariable int id,  Book book, RedirectAttributes flash){
+    log.info("Updating info for {}", book);
+    service.update(book);
     flash.addFlashAttribute("SUCCESS_MSG", "book saved");
     return "redirect:/books";
   }
 
+  @RequestMapping(value = "/book", method = RequestMethod.POST)
+  public String save(Book book, RedirectAttributes flash) {
+    log.info("Inserting {}", book );
+    service.insert( book );
+    flash.addFlashAttribute("SUCCESS_MSG", "book saved");
+    return "redirect:/books";
+  }
 }

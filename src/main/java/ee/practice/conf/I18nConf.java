@@ -1,4 +1,4 @@
-package ee.practice;
+package ee.practice.conf;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;

@@ -3,10 +3,7 @@ package ee.practice.book;
 import org.codehaus.groovy.runtime.metaclass.ConcurrentReaderHashMap;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -34,8 +31,8 @@ public class BookService {
     return id;
   }
 
-  public Book load(int id) {
-    return books.get(id);
+  public Optional<Book> load(int id) {
+    return Optional.ofNullable(books.get(id));
   }
 
   public List<Book> getAll() {
@@ -43,5 +40,11 @@ public class BookService {
         .sorted(Comparator.comparing(Map.Entry::getKey))
         .map( Map.Entry::getValue)
         .collect(Collectors.toList());
+  }
+
+  public void update(Book book) {
+    if(!books.containsKey( book.getId()))
+      throw new RuntimeException( "Book Not found ");
+    books.put( book.getId(), book);
   }
 }

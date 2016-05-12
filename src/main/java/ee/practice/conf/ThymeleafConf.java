@@ -1,4 +1,4 @@
-package ee.practice;
+package ee.practice.conf;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.context.annotation.Bean;
