@@ -7,13 +7,15 @@ import org.springframework.boot.context.embedded.ErrorPage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * Hello world!
  */
 @SpringBootApplication
 @PropertySource("file:/opt/conf/practice.properties")
-public class Application {
+public class Application extends WebMvcConfigurerAdapter {
 
   public static void main(String[] args) {
     SpringApplication.run(Application.class, args);
@@ -28,6 +30,11 @@ public class Application {
 
       container.addErrorPages(error404Page, error500Page);
     });
+  }
+
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addViewController("/login").setViewName("login");
   }
 
 }

@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Created by Andrei Nikulin (KEMIT)
  * on 5/12/2016.
  */
-@ControllerAdvice
+//@ControllerAdvice
 public class ErrorHandlingConf {
-  private static final Logger log = LoggerFactory.getLogger(ErrorHandlingConf.class);
-
-  @ResponseStatus(HttpStatus.NOT_FOUND)  // 404
-  @ExceptionHandler(NotFoundException.class)
-  public void notFound(Exception e) {
-    log.info("Got error :" + e.getMessage());
-  }
+//  private static final Logger log = LoggerFactory.getLogger(ErrorHandlingConf.class);
+//
+//  @ResponseStatus(HttpStatus.NOT_FOUND)  // 404
+//  @ExceptionHandler(NotFoundException.class)
+//  public void notFound(Exception e) {
+//    log.info("Got error :" + e.getMessage());
+//  }
 
 }

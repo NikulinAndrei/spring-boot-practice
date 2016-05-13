@@ -37,11 +37,10 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
-    <!--<dependency>-->
-      <!--<groupId>ee.kem.xtee.common</groupId>-->
-      <!--<artifactId>xtee-common</artifactId>-->
-      <!--<version>trunk.59</version>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
   </dependencies>
 
   <!--<repositories>-->
