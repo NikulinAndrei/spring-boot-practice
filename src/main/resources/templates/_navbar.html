@@ -1,6 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:th="http://www.thymeleaf.org">
     <head>
         <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.css}"
                                 href="../static/bower_components/bootstrap/dist/css/bootstrap.css"/>
@@ -21,7 +20,7 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+                <ul sec:authorize="isAuthenticated()" class="nav navbar-nav">
                     <li><a href="#" th:href="@{/books}" th:text="#{menu.books}">Books</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
