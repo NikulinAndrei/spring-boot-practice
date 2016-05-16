@@ -23,19 +23,20 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    // No security for static components
+    // No security for static components and login form
     http
         .authorizeRequests()
-        .antMatchers("/bower_components/**")
+        .antMatchers("/bower_components/**", "/login**")
         .permitAll();
     // Login form configuration
     http
         .formLogin().failureUrl("/login?error")
         .defaultSuccessUrl("/books")
         .loginPage("/login")
-        .permitAll()
         .and()
-        .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
+        .logout()
+        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+        .logoutSuccessUrl("/login?loggedOut")
         .permitAll();
     // All other requests must be authorized
     http

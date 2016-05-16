@@ -17,10 +17,12 @@
             </div>
 
             <div th:if="${param.error}">
-                Invalid username / password.
+                <div class="alert alert-danger" role="alert" th:text="#{error.invalidUsernamePassword}">
+                </div>
             </div>
-            <div th:if="${param.logout}">
-                You have been logged out.
+            <div th:if="${param.loggedOut}">
+                <div class="alert alert-success" role="alert" th:text="#{msg.loggedOut}">
+                </div>
             </div>
             <form role="form" th:action="@{/login}" method="post">
                 <div class="form-group">
