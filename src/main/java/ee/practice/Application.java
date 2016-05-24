@@ -7,8 +7,11 @@ import org.springframework.boot.context.embedded.ErrorPage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import static org.springframework.http.MediaType.*;
 
 /**
  * Hello world!
@@ -32,9 +35,21 @@ public class Application extends WebMvcConfigurerAdapter {
     });
   }
 
+
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
     registry.addViewController("/login").setViewName("login");
   }
 
+  @Override
+  public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+    configurer
+        .favorPathExtension(true)
+        .favorParameter(false)
+        .ignoreAcceptHeader(true)
+        .useJaf(false)
+        .defaultContentType(TEXT_HTML)
+        .mediaType("xml", APPLICATION_XML)
+        .mediaType("json", APPLICATION_JSON);
+  }
 }
