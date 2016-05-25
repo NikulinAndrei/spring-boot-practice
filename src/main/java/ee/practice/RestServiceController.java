@@ -1,5 +1,6 @@
 package ee.practice;
 
+import ee.practice.ex.NotFoundException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +14,10 @@ public class RestServiceController {
 
   @RequestMapping("/user/{id}")
   public User getUser(@PathVariable int id ) {
-    return new User(id);
+    if(id <=10)
+      return new User(id);
+
+    throw new NotFoundException("No user with id="+id);
   }
 
 }
