@@ -1,13 +1,24 @@
 package ee.practice.book;
 
+import javax.persistence.*;
+
 /**
  * Created by Andrei Nikulin (KEMIT)
  * on 5/11/2016.
  */
+@Entity
 public class Book {
-  private int id;
+
+  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
+
+  @Column(nullable = false)
   private String title;
+
+  @Column(nullable = false)
   private String author;
+
+  @Column(name = "nr_of_pages")
   private int nrOfPages;
 
   @Override
@@ -43,11 +54,11 @@ public class Book {
     this.nrOfPages = nrOfPages;
   }
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 }

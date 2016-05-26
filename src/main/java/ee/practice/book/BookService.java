@@ -1,11 +1,10 @@
 package ee.practice.book;
 
-import org.codehaus.groovy.runtime.metaclass.ConcurrentReaderHashMap;
+import ee.practice.ex.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 /**
  * Created by Andrei Nikulin (KEMIT)
@@ -13,38 +12,30 @@ import java.util.stream.Collectors;
  */
 @Service
 public class BookService {
-  private AtomicInteger ids = new AtomicInteger(0);
-  private Map<Integer, Book> books = new HashMap<>();
 
-  public BookService() {
-    Book b = new Book();
-    b.setTitle("Some");
-    b.setAuthor("Agnija Barto");
-    b.setNrOfPages(15);
-    insert(b);
+  private final BookRepository bookRepository;
+
+  @Autowired
+  public BookService(BookRepository bookRepository) {
+    this.bookRepository = bookRepository;
   }
 
   int insert(Book book){
-    int id = ids.incrementAndGet();
-    book.setId(id);
-    books.put(id, book);
-    return id;
+    bookRepository.save(book);
+    return book.getId();
   }
 
   public Optional<Book> load(int id) {
-    return Optional.ofNullable(books.get(id));
+    return Optional.ofNullable( bookRepository.findOne(id) );
   }
 
   public List<Book> getAll() {
-    return books.entrySet().stream()
-        .sorted(Comparator.comparing(Map.Entry::getKey))
-        .map( Map.Entry::getValue)
-        .collect(Collectors.toList());
+    return bookRepository.findAll();
   }
 
   public void update(Book book) {
-    if(!books.containsKey( book.getId()))
-      throw new RuntimeException( "Book Not found ");
-    books.put( book.getId(), book);
+    if(!bookRepository.exists(book.getId()))
+      throw new NotFoundException( "Book Not found ");
+    bookRepository.save( book );
   }
 }

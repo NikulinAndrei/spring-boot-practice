@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.2.xsd"
+    logicalFilePath="changelog_initial.xml" >
+
+  <property name="now" value="now()" dbms="postgresql"/>
+
+  <changeSet id="1" author="AndreiNikulin">
+    <comment>table: book</comment>
+    <createTable tableName="book" remarks="book data">
+      <column name="id" type="bigserial" autoIncrement="true" remarks="Unique primary key">
+        <constraints primaryKey="true" primaryKeyName="book_pk"/>
+      </column>
+      <column name="title" type="varchar(200)" remarks="Book's title">
+        <constraints nullable="false"/>
+      </column>
+      <column name="author" type="varchar(200)" remarks="Book's author">
+        <constraints nullable="false"/>
+      </column>
+      <column name="nr_of_pages" type="integer" remarks="Nr of pages">
+        <constraints nullable="false"/>
+      </column>
+      <!-- # -->
+      <column name="created_at" type="timestamp" defaultValueDate="${now}" remarks="When the record was created">
+        <constraints nullable="false"/>
+      </column>
+      <column name="modified_at" type="timestamp" remarks="When the record was modified"/>
+      <column name="is_deleted" type="boolean" defaultValueBoolean="false" remarks="Indicates (true) logically deleted rows">
+        <constraints nullable="false"/>
+      </column>
+      <column name="version" type="int" defaultValueDate="0" remarks="Hibernate version"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="2" author="AndreiNikulin">
+    <comment>teble:book, some data</comment>
+    <insert tableName="book">
+      <column name="title">Jungle book</column>
+      <column name="author">R. Kipling</column>
+      <column name="nr_of_pages">323</column>
+    </insert>
+    <insert tableName="book">
+      <column name="title">My family and other animals</column>
+      <column name="author">J.Durrell</column>
+      <column name="nr_of_pages">258</column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>
