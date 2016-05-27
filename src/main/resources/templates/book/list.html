@@ -44,6 +44,22 @@
                     </tbody>
                 </table>
             </div>
+
+            <nav>
+                <ul class="pagination" th:if="${books.hasContent() == true}">
+                    <li th:if="${books.first == false}">
+                        <a href="#" th:href="@{/books/} + ${books.number-1}" aria-label="Previous">
+                            <span aria-hidden="true"> prev </span>
+                        </a>
+                    </li>
+                    <li><a href="#" th:text="${books.number+1}">1</a></li>
+                    <li th:if="${books.last == false}">
+                        <a href="#" th:href="@{/books/} + ${books.number+1}" aria-label="Next">
+                            <span aria-hidden="true">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
     </div>

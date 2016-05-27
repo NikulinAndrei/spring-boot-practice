@@ -2,6 +2,9 @@ package ee.practice.book;
 
 import ee.practice.ex.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -32,6 +35,13 @@ public class BookService {
   public List<Book> getAll() {
     return bookRepository.findAll();
   }
+
+  public Page<Book> list(int pageNr) {
+    return bookRepository.findAll(
+        new PageRequest( pageNr, 5, new Sort(Sort.Direction.DESC, "id"))
+    );
+  }
+
 
   public void update(Book book) {
     if(!bookRepository.exists(book.getId()))
