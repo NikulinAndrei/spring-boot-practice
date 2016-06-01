@@ -58,6 +58,14 @@ class BookController {
     return "redirect:/books";
   }
 
+  @RequestMapping(value = "/book/delete/{id}", method = RequestMethod.POST)
+  public String delete(@PathVariable int id,  RedirectAttributes flash){
+    log.info("Deleting book {}", id);
+    service.delete(id);
+    flash.addFlashAttribute("SUCCESS_MSG", "book deleted");
+    return "redirect:/books";
+  }
+
   @RequestMapping(value = "/book", method = RequestMethod.POST)
   public String save(Book book, RedirectAttributes flash) {
     log.info("Inserting {}", book );

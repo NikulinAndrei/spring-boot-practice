@@ -1,6 +1,7 @@
 package ee.practice.book;
 
 import lombok.Data;
+import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
  * on 5/11/2016.
  */
 @Entity @Data
+@SQLDelete( sql="UPDATE book SET is_deleted=true WHERE id = ?")
 public class Book {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

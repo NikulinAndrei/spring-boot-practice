@@ -30,6 +30,7 @@
                         <th th:text="#{book.author}">Title</th>
                         <th th:text="#{book.nrOfPages}">Title</th>
                         <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -40,10 +41,19 @@
                         <td>
                             <a class="btn btn-info btn-xs" th:href="@{/book/} + ${book.id}" th:text="#{btn.openBook}"> open </a>
                         </td>
+                        <td>
+                            <a class="btn btn-danger btn-xs delBook"
+                               th:attr="data-id=${book.id}"
+                               th:text="#{btn.deleteBook}"> del </a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
+
+            <form role="form"  id="formDelete" method="post" th:action="@{/book/delete}">
+
+            </form>
 
             <nav>
                 <ul class="pagination" th:if="${books.hasContent() == true}">
@@ -61,6 +71,13 @@
                 </ul>
             </nav>
         </div>
+        <script>
+            $(".delBook").click(function (e) {
+                $("#formDelete")
+                        .attr("action", "/book/delete/" + $(this).data('id'))
+                        .submit();
+            });
+        </script>
     </div>
     </div>
 
