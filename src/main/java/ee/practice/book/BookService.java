@@ -14,7 +14,7 @@ import java.util.*;
  * on 5/11/2016.
  */
 @Service
-public class BookService {
+class BookService {
 
   private final BookRepository bookRepository;
 

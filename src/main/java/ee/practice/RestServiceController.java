@@ -1,6 +1,9 @@
 package ee.practice;
 
 import ee.practice.ex.NotFoundException;
+import ee.practice.user.User;
+import ee.practice.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,12 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RestServiceController {
 
+  @Autowired UserService userService;
+
   @RequestMapping("/user/{id}")
   public User getUser(@PathVariable int id ) {
-    if(id <=10)
-      return new User(id);
-
-    throw new NotFoundException("No user with id="+id);
+    return userService.loadById( id ).
+        orElseThrow( ()-> new NotFoundException("No user with id="+id) );
   }
-
 }

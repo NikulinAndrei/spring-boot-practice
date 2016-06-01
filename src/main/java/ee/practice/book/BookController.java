@@ -1,6 +1,7 @@
 package ee.practice.book;
 
 import ee.practice.ex.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ import java.util.Optional;
  * on 5/11/2016.
  */
 @Controller
-public class BookController {
-  private static final Logger log = LoggerFactory.getLogger(BookController.class);
+@Slf4j
+class BookController {
 
   @Autowired BookService service;
 
