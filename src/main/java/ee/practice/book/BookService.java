@@ -46,15 +46,24 @@ class BookService {
   }
 
 
-  void update(Book book) {
-    if(!bookRepository.exists(book.getId()))
-      throw new NotFoundException( "Book Not found ");
-    bookRepository.save( book );
+  Book update(Book book) {
+    log.info("Updating book {}", book.getId());
+    Book existing = load( book.getId())
+        .orElseThrow(()->new NotFoundException( "Book Not found "));
+    copyBookData( book, existing);
+    bookRepository.save( existing );
+    return existing;
   }
 
   void delete(int id){
     log.info("deleting book {}", id);
     bookRepository.delete( id );
+  }
+
+  private void copyBookData(Book src, Book target) {
+    target.setTitle( src.getTitle());
+    target.setAuthor( src.getAuthor());
+    target.setNrOfPages( src.getNrOfPages());
   }
 
 }
