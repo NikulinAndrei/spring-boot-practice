@@ -36,7 +36,7 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
     // No security for static components and login form
     http
         .authorizeRequests()
-        .antMatchers("/webjars/**", "/login**")
+        .antMatchers("/webjars/**", "/css/**", "/login**")
         .permitAll();
     // Login form configuration
     http

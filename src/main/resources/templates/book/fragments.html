@@ -6,21 +6,23 @@
 <body>
 
 <div th:fragment="bookform">
-    <div class="form-group">
+    <div class="form-group" th:classappend="${#fields.hasErrors('title')}? has-error">
         <label for="title" th:text="#{book.title}">Title</label>
-        <input type="text" id="title" name="title" class="form-control" th:field="${book.title}"/>
+        <input type="text" id="title" name="title" class="form-control"
+               th:field="${book.title}"/>
         <ul class="errorMessage" th:if="${#fields.hasErrors('title')}">
             <li th:errors="*{title}">Title error</li>
         </ul>
     </div>
-    <div class="form-group">
+    <div class="form-group" th:classappend="${#fields.hasErrors('author')}? has-error">
         <label for="author" th:text="#{book.author}">Author</label>
-        <input type="text" id="author" name="author" class="form-control" th:field="${book.author}"/>
+        <input type="text" id="author" name="author" class="form-control"
+               th:field="${book.author}"/>
         <ul class="errorMessage" th:if="${#fields.hasErrors('author')}">
             <li th:errors="*{author}">Author error</li>
         </ul>
     </div>
-    <div class="form-group">
+    <div class="form-group" th:classappend="${#fields.hasErrors('nrOfPages')}? has-error" >
         <label for="nrOfPages" th:text="#{book.nrOfPages}">Nr of Pages</label>
         <input type="text" id="nrOfPages" name="nrOfPages" class="form-control" th:field="${book.nrOfPages}"/>
         <ul class="errorMessage" th:if="${#fields.hasErrors('nrOfPages')}">
