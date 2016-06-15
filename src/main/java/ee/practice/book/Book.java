@@ -6,6 +6,10 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created by Andrei Nikulin (KEMIT)
@@ -20,11 +24,14 @@ import javax.persistence.*;
   private Integer id;
 
   @Column(nullable = false)
+  @NotNull @Size(min=3, max=100)
   private String title;
 
   @Column(nullable = false)
+  @NotNull @Size(min=3, max=100)
   private String author;
 
   @Column(name = "nr_of_pages")
+  @NotNull @Min(2) @Max(2000)
   private int nrOfPages;
 }

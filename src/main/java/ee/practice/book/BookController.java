@@ -2,17 +2,17 @@ package ee.practice.book;
 
 import ee.practice.ex.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 /**
@@ -42,7 +42,7 @@ class BookController {
   }
 
   @RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
-  public String newBook(@PathVariable int id,  Model model){
+  public String editBook(@PathVariable int id,  Model model){
     log.info("Showing info for {}", id);
     Book book = service.load(id)
         .orElseThrow( ()-> new NotFoundException("Cannot load book for Id " + id));
@@ -51,7 +51,10 @@ class BookController {
   }
 
   @RequestMapping(value = "/book/{id}", method = RequestMethod.POST)
-  public String update(@PathVariable int id,  Book book, RedirectAttributes flash){
+  public String update(@PathVariable int id,  @Valid Book book, BindingResult bindingResult, RedirectAttributes flash){
+    if (bindingResult.hasErrors())
+      return  "book/edit";
+
     log.info("Updating info for {}", book);
     service.update(book);
     flash.addFlashAttribute("SUCCESS_MSG", "book saved");
@@ -67,7 +70,10 @@ class BookController {
   }
 
   @RequestMapping(value = "/book", method = RequestMethod.POST)
-  public String save(Book book, RedirectAttributes flash) {
+  public String insert(@Valid Book book, BindingResult bindingResult, RedirectAttributes flash) {
+    if (bindingResult.hasErrors())
+      return  "book/new";
+
     log.info("Inserting {}", book );
     service.insert( book );
     flash.addFlashAttribute("SUCCESS_MSG", "book saved");
