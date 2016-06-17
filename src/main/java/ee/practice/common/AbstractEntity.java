@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -15,7 +16,7 @@ import java.util.Date;
  * Created by Andrei Nikulin (KEMIT)
  * on 6/1/2016.
  */
-@MappedSuperclass
+@MappedSuperclass @Audited
 public abstract class AbstractEntity {
 
   @Version

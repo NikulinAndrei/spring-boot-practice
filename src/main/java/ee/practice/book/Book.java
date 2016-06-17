@@ -4,6 +4,7 @@ import ee.practice.common.AbstractEntity;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -15,7 +16,7 @@ import javax.validation.constraints.Size;
  * Created by Andrei Nikulin (KEMIT)
  * on 5/11/2016.
  */
-@Entity
+@Entity @Audited()
 @SQLDelete( sql="UPDATE book SET is_deleted=true WHERE id = ? and version=?")
 @Where(clause="is_deleted = 'false'")
 @Data class Book extends AbstractEntity {

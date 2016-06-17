@@ -90,5 +90,55 @@
     </insert>
   </changeSet>
 
+  <changeSet id="6" author="AndreiNikulin">
+    <comment>Sequence for Hibernate</comment>
+    <createSequence sequenceName="hibernate_sequence"/>
+  </changeSet>
+
+  <changeSet id="7" author="AndreiNikulin">
+    <comment>Envers table REVINFO</comment>
+    <sql>
+      create table REVINFO (
+      REV int4 not null,
+      REVTSTMP int8,
+      primary key (REV)
+      );
+    </sql>
+    <rollback>
+      drop table REVINFO;
+    </rollback>
+  </changeSet>
+
+  <changeSet id="8" author="AndreiNikulin">
+    <comment>Envers table Book_AUD</comment>
+    <sql>
+      create table Book_AUD (
+      id int4 not null,
+      REV int4 not null,
+      REVTYPE int2,
+      created_at timestamp,
+      modified_at timestamp,
+      author varchar(100),
+      nr_of_pages int4,
+      title varchar(100),
+      primary key (id, REV)
+      );
+    </sql>
+    <rollback>
+      drop table Book_AUD;
+    </rollback>
+  </changeSet>
+
+  <changeSet id="9" author="AndreiNikulin">
+    <comment>Envers table Book_AUD constraint</comment>
+    <sql>
+      alter table Book_AUD
+      add constraint FK_wgyqg8h6de3kdkxjitvp2ig9
+      foreign key (REV)
+      references REVINFO;
+    </sql>
+    <rollback>
+    </rollback>
+  </changeSet>
 
 </databaseChangeLog>
