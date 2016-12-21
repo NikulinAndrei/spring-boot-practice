@@ -24,7 +24,9 @@
     </div>
     <div class="form-group" th:classappend="${#fields.hasErrors('nrOfPages')}? has-error" >
         <label for="nrOfPages" th:text="#{book.nrOfPages}">Nr of Pages</label>
-        <input id="nrOfPages" name="nrOfPages" class="form-control" th:field="${book.nrOfPages}"/>
+        <input type="number" id="nrOfPages" name="nrOfPages" class="form-control"
+               min="1" max="2000" step="1"
+               th:field="${book.nrOfPages}"/>
         <ul class="errorMessage" th:if="${#fields.hasErrors('nrOfPages')}">
             <li th:errors="*{nrOfPages}">nrOfPages error</li>
         </ul>
